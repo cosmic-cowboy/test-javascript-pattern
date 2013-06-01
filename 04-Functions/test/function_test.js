@@ -20,5 +20,29 @@ TestCase("04-Funcitons Test",{
 		assertEquals(2, next());
 		assertEquals(3, next());
 		assertEquals(4, next());
+	},
+
+	// "test Self-Defining Functions" :function () {
+	// 	assertEquals("Boo!", scareMe());
+	// 	assertEquals("Double Boo!", scareMe());
+	// },
+
+	"test Self-Defining Functions, lost when it redefines itself" :function () {
+		// A new property is added.
+		scareMe.property = "properly";
+		// The function object is assigned to a new variable.
+		var prank = scareMe;
+		// The function is also used as a method.
+		var spooky = {
+			boo : scareMe
+		};
+
+		assertEquals("Boo!", prank());
+		assertEquals("Boo!", prank());
+		assertEquals("properly", prank.property);
+		assertEquals("Boo!", spooky.boo());
+		assertEquals("Boo!", spooky.boo());
+		assertEquals("properly", spooky.boo.property);
 	}
+
 });
