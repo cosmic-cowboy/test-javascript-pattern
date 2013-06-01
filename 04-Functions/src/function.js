@@ -14,6 +14,11 @@ var findNodes = function (callback, callback_obj) {
 		callback = false;
 	}
 
+	// callbackが文字列の場合、callback_objのメソッドとして扱う
+	if(typeof callback === "string") {
+		callback = callback_obj[callback_obj];
+	}
+
 	while(i){
 		i -= 1;
 

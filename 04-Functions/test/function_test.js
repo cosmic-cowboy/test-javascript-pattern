@@ -11,6 +11,6 @@ TestCase("04-Funcitons Test",{
 	},
 	"test callback myapp.paint" : function () {
 		// myappオブジェクトのpaintメソッドをcallbackに利用
-		findNodes(myapp.paint, myapp);
+		findNodes("paint", myapp);
 	}
 });
