@@ -3,7 +3,7 @@
 // DOMツリーを巡回し、ページ要素を配列で返す
 // callbackを受け付ける
 
-var findNodes = function (callback) {
+var findNodes = function (callback, callback_obj) {
 
 	var i = 1000000,
 		nodes = [],
@@ -27,7 +27,7 @@ var findNodes = function (callback) {
 
 		// callback
 		if(callback){
-			callback(found);
+			callback.call(callback_obj, found);
 		}
 
 		nodes.push(found);

@@ -1,16 +1,16 @@
 TestCase("04-Funcitons Test",{
 	"test callback hide node" : function () {
 		// ノードが見つかり次第、hideを実行
-		findNodes(hide);
+		findNodes(hide, this);
 	},
 	"test callback anonymous callback" : function () {
 
 		findNodes(function(node){
 			node.style.display = "block";
-		});
+		}, this);
 	},
-	"test callback this.color will not be defined" : function () {
+	"test callback myapp.paint" : function () {
 		// myappオブジェクトのpaintメソッドをcallbackに利用
-		findNodes(myapp.paint);
+		findNodes(myapp.paint, myapp);
 	}
 });
