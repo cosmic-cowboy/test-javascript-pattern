@@ -48,6 +48,57 @@ TestCase("04-Funcitons Test",{
 		assertEquals("Double Boo!", scareMe());
 		assertEquals("Double Boo!", scareMe());
 		assertEquals(undefined, scareMe.property);
+	},
+
+	// 4.5 immediate function (Returned Values from Immediate Functions)
+	"test immediate function" : function () {
+		var immediateRtn = (function () {
+			var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+				today = new Date(2013, 5, 2);
+				msg = 'Today is ' + days[today.getDay()] + ', ' + today.getDate();
+				return msg;
+		}());
+		assertEquals('Today is Sun, 2', immediateRtn);
+	},
+	// 4.5.1 Parameters of an Immediate Function (Returned Values from Immediate Functions)
+	"test Parameters of an Immediate Function" : function () {
+		var immediateRtn = (function (who, when) {
+			return ("I met " + who + " on " + when.getDate());
+		}("Joe Black", new Date(2013, 5, 2)));
+		assertEquals('I met Joe Black on 2', immediateRtn);
+	},
+	// 4.5.2 Returned Values from Immediate Functions
+	"test Returned Values from Immediate Functions" : function () {
+		var o = {
+			message : (function () {
+				var who = "me",
+					what = "call";
+				return what + " " + who;
+			}()),
+			getMsg : function () {
+				return this.message;
+			}
+		};
+		assertEquals('call me', o.message);
+		assertEquals('call me', o.getMsg());
 	}
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
