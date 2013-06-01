@@ -12,5 +12,13 @@ TestCase("04-Funcitons Test",{
 	"test callback myapp.paint" : function () {
 		// myappオブジェクトのpaintメソッドをcallbackに利用
 		findNodes("paint", myapp);
+	},
+
+	"test closure" : function () {
+		var next = setup();
+		assertEquals(1, next());
+		assertEquals(2, next());
+		assertEquals(3, next());
+		assertEquals(4, next());
 	}
 });
