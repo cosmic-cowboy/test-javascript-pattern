@@ -8,5 +8,9 @@ TestCase("04-Funcitons Test",{
 		findNodes(function(node){
 			node.style.display = "block";
 		});
+	},
+	"test callback this.color will not be defined" : function () {
+		// myappオブジェクトのpaintメソッドをcallbackに利用
+		findNodes(myapp.paint);
 	}
 });
