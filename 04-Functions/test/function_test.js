@@ -43,6 +43,11 @@ TestCase("04-Funcitons Test",{
 		assertEquals("Boo!", spooky.boo());
 		assertEquals("Boo!", spooky.boo());
 		assertEquals("properly", spooky.boo.property);
+
+		// 自己定義関数
+		assertEquals("Double Boo!", scareMe());
+		assertEquals("Double Boo!", scareMe());
+		assertEquals(undefined, scareMe.property);
 	}
 
 });
