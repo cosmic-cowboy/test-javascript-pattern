@@ -81,8 +81,50 @@ TestCase("04-Funcitons Test",{
 		};
 		assertEquals('call me', o.message);
 		assertEquals('call me', o.getMsg());
-	}
+	},
+	// 4.6 Immediate Object Initialization
+	"test Immediate Object Initialization" : function () {
+		var immediateObjInit = 
+		({
+			// 設定値を定義（定数）
+			maxwidth : 600,
+			maxheight : 400,
 
+			// ユーティリティ
+			gimmeMax : function () {
+				return this.maxwidth + "X" + this.maxheight;
+			},
+
+			// 初期化
+			init: function () {
+				return this.gimmeMax();
+			}
+		}).init();
+
+		assertEquals('600X400', immediateObjInit);
+	},
+	"test Immediate Object Initialization return Object" : function () {
+		var immediateObjInit = 
+		({
+			// 設定値を定義（定数）
+			maxwidth : 600,
+			maxheight : 400,
+
+			// ユーティリティ
+			gimmeMax : function () {
+				return this.maxwidth + "X" + this.maxheight;
+			},
+
+			// 初期化
+			init: function () {
+				return this;
+			}
+		}).init();
+
+		assertEquals('600X400', immediateObjInit.gimmeMax());
+		assertEquals('600', immediateObjInit.maxwidth);
+		assertEquals('400', immediateObjInit.maxheight);
+	}
 });
 
 
