@@ -132,7 +132,9 @@ TestCase("04-Funcitons Test",{
 
 		// 関数適用
 		assertEquals('Hello, world!', sayHi.call(null, "world"));
+		assertEquals('Hello, world, space!', sayHi.call(null, "world", "space"));
 		assertEquals('Hello, world!', sayHi.apply(null, ["world"]));
+		assertEquals('Hello, world, space!', sayHi.apply(null, ["world", "space"]));
 
 	},
 	"test Curry Function Application this inside of sayHi() points to alien" : function () {
