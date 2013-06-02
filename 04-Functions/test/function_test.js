@@ -124,6 +124,25 @@ TestCase("04-Funcitons Test",{
 		assertEquals('600X400', immediateObjInit.gimmeMax());
 		assertEquals('600', immediateObjInit.maxwidth);
 		assertEquals('400', immediateObjInit.maxheight);
+	},
+	"test Curry Function Application" : function () {
+		// 関数呼び出し
+		assertEquals('Hello!', sayHi());
+		assertEquals('Hello, world!', sayHi("world"));
+
+		// 関数適用
+		assertEquals('Hello, world!', sayHi.call(null, "world"));
+		assertEquals('Hello, world!', sayHi.apply(null, ["world"]));
+
+	},
+	"test Curry Function Application this inside of sayHi() points to alien" : function () {
+		// 関数呼び出し
+		assertEquals('Hello!', alien.sayHi());
+		assertEquals('Hello, humans!', alien.sayHi("humans"));
+
+		// 関数適用
+		assertEquals('Hello, humans!', sayHi.call(alien, "humans"));
+		assertEquals('Hello, humans!', sayHi.apply(alien, ["humans"]));
 	}
 });
 
