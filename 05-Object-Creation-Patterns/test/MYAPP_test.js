@@ -20,6 +20,7 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 	},
 	// 5.3 オブジェクトメンバはすべてパブリック
 	"test All object members are public" : function () {
+		// オブジェクトメンバはすべてパブリック
 		var myobj = {
 			myprop : 1,
 			getProp : function () {
@@ -29,6 +30,8 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		assertEquals(1, myobj.myprop);
 		assertEquals(1, myobj.getProp());
 
+		// コンストラクタ関数を使ってオブジェクトを作成した場合も
+		// thisを使っている点に注目
 		function Gadget () {
 			this.name = 'iPod';
 			this.stretch = function () {
@@ -38,5 +41,21 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		var toy = new Gadget();
 		assertEquals('iPod', toy.name);
 		assertEquals('iPad', toy.stretch());
+	},
+	// 5.3.1 プライベートメンバ
+	"test Private Properties and Methods Private Members" : function () {
+
+		function Gadget () {
+			// プライベートメンバ
+			var name = 'iPod';
+			// パブリックメンバ
+			this.getName = function () {
+				return name;
+			};
+		}
+
+		var toy = new Gadget();
+		assertEquals(undefined, toy.name);
+		assertEquals('iPod', toy.getName());
 	}
 });
