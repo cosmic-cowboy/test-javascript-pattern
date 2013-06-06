@@ -165,7 +165,7 @@ TestCase("04-Funcitons Test",{
 		assertEquals(17, schonfinkelize(add_five, 1, 2, 3)(5, 6));
 
 		// 2段階のカリー化
-		var addOne = schonfinkelize(add, 1);
+		var addOne = schonfinkelize(add_five, 1);
 		assertEquals(41, addOne(10,10,10,10));
 		var addSix = schonfinkelize(addOne, 2, 3);
 		assertEquals(16, addSix(5,5));
