@@ -1,20 +1,24 @@
-// グローバルオブジェクト
+// 5.1.1 汎用の名前空間関数 General Purpose Namespace Function
+var MYAPP = MYAPP || {};
 
-var MYAPP = {};
+// 名前空間関数の実装
+MYAPP.namespace = function (ns_string) {
+	// 引数に設定された名前空間を.で区切って配列に
+	var parts = ns_string.split('.'),
+		parent = MYAPP,
+		i;
 
-// コンストラクタ
-MYAPP.Parent = function () {};
-MYAPP.Child = function () {};
+	// 先頭の冗長なグローバルを取り除く
+	if (parts[0] == "MYAPP"){
+		parts = parts.slice(1);
+	}
 
-// 変数
-MYAPP.some_var = 1;
-
-// オブジェクトのコンテナ
-MYAPP.modules = {};
-
-// 入れ子になったオブジェクト
-MYAPP.modules.module1 = {};
-MYAPP.modules.module1.data = {a:1, b:2};
-MYAPP.modules.module2 = {};
-
-
+	for (i = 0; i < parts.length; i += 1) {
+		// プロパティが存在しなければ作成する
+		if(typeof parent[parts[i]] === 'undefined'){
+			parent[parts[i]] = {};
+		}
+		parent = parent[parts[i]];
+	}
+	return parent;
+};
