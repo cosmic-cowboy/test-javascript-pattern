@@ -18,5 +18,25 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		MYAPP.namespace('once.upon.a.time.there.was.this.long.nested.property');
 		assertFalse('undefined' === MYAPP.once.upon.a.time.there.was.this.long.nested.property);
 	},
+	// 5.3 オブジェクトメンバはすべてパブリック
+	"test All object members are public" : function () {
+		var myobj = {
+			myprop : 1,
+			getProp : function () {
+				return this.myprop;
+			}
+		};
+		assertEquals(1, myobj.myprop);
+		assertEquals(1, myobj.getProp());
 
+		function Gadget () {
+			this.name = 'iPod';
+			this.stretch = function () {
+				return 'iPad';
+			};
+		}
+		var toy = new Gadget();
+		assertEquals('iPod', toy.name);
+		assertEquals('iPad', toy.stretch());
+	}
 });
