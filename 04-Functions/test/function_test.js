@@ -145,6 +145,31 @@ TestCase("04-Funcitons Test",{
 		// 関数適用
 		assertEquals('Hello, humans!', sayHi.call(alien, "humans"));
 		assertEquals('Hello, humans!', sayHi.apply(alien, ["humans"]));
+	},
+	"test Curry schonfinkelize" : function () {
+
+		// 通常の関数処理
+		assertEquals(7, add(3,4));
+
+		// 関数をカリー化して新しい関数にする
+		var newadd = schonfinkelize(add, 5);
+		assertEquals(9, newadd(4));
+
+		// もうひとつのやり方　この新しい関数を直接呼ぶ
+		assertEquals(13, schonfinkelize(add, 6)(7));
+
+		// ５つの引数の加算処理
+		assertEquals(15, add_five(1, 2, 3, 4, 5));
+
+		// 引数が複数の場合
+		assertEquals(17, schonfinkelize(add_five, 1, 2, 3)(5, 6));
+
+		// 2段階のカリー化
+		var addOne = schonfinkelize(add, 1);
+		assertEquals(41, addOne(10,10,10,10));
+		var addSix = schonfinkelize(addOne, 2, 3);
+		assertEquals(16, addSix(5,5));
+
 	}
 });
 
