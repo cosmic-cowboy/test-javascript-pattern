@@ -206,9 +206,10 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 
 	},
 	// 5.4 モジュールパターン module pattern
+	// 5.4.1 モジュールパターンの開示 Revealing Module Pattern
 	"test module pattern" : function () {
 		var test_array = ["a", "b", "z"];
-		assertTrue(MYAPP.utilities.array.indexOf(test_array, "z"));
+		assertEquals(2, MYAPP.utilities.array.indexOf(test_array, "z"));
 	}
 
 
