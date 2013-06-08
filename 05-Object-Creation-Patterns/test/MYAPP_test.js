@@ -164,6 +164,46 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		assertEquals("Mobile Webkit", toy.getBrowser());
 
 
+	},
+
+	// 5.3.6 プライベート関数をパブリックメソッドとして開示する モジュール開示パターン revealing module pattern
+	"test Private Properties and Methods revealing module pattern" : function () {
+
+		var myarray;
+
+		(function () {
+			var astr = "[object Array]",
+				toString = Object.prototype.toString;
+
+			function isArray (a) {
+				return toString.call(a) === astr;
+			}
+
+			function indexOf (haystack, needle) {
+				var i = 0,
+					max = haystack.length;
+				for (; i < max; i += 1) {
+					if(haystack[i] === needle){
+						return i;
+					}
+				}
+				return -1;
+			}
+
+			myarray = {
+				isArray : isArray,
+				indexOf : indexOf,
+				inArray : indexOf
+			};
+		}());
+
+		var test_array = ["a", "b", "z"];
+		assertEquals(2, myarray.indexOf(test_array, "z"));
+		assertEquals(2, myarray.inArray(test_array, "z"));
+
+		myarray.indexOf = null;
+		assertEquals(2, myarray.inArray(test_array, "z"));
+
 	}
 
 
