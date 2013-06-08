@@ -205,6 +205,7 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		assertEquals(2, myarray.inArray(test_array, "z"));
 
 	},
+
 	// 5.4 モジュールパターン module pattern
 	// 5.4.1 モジュールパターンの開示 Revealing Module Pattern
 	"test module pattern Revealing Module Pattern" : function () {
