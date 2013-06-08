@@ -134,10 +134,37 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		}());
 
 		assertEquals("my, oh my", myobj_module_pattern.getName());
+	},
+
+	// 5.3.5 プロトタイプとプライバシー Prototypes and Privacy
+	"test Private Properties and Methods Prototypes and Privacy" : function () {
+
+		function Gadget () {
+			// プライベートメンバ
+			var name = "iPod";
+			// パプリック関数
+			this.getName = function () {
+				return name;
+			};
+		}
+		// 無名即時関数から返却されるオブジェクトを代入
+		Gadget.prototype = (function() {
+
+			// プライベートメンバ
+			var browser = "Mobile Webkit";
+			// prototypeにあるパブリックメンバ
+			return {
+				getBrowser : function () {
+					return browser;
+				}
+			};
+		}());
+		var toy = new Gadget();
+		assertEquals("iPod", toy.getName());
+		assertEquals("Mobile Webkit", toy.getBrowser());
+
 
 	}
-
-
 
 
 
