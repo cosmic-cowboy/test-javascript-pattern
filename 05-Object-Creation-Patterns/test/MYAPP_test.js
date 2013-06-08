@@ -207,10 +207,18 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 	},
 	// 5.4 モジュールパターン module pattern
 	// 5.4.1 モジュールパターンの開示 Revealing Module Pattern
-	"test module pattern" : function () {
+	"test module pattern Revealing Module Pattern" : function () {
 		var test_array = ["a", "b", "z"];
 		assertEquals(2, MYAPP.utilities.array.indexOf(test_array, "z"));
+	},
+
+	// 5.4.2 コンストラクタを作成するモジュール Modules That Create Constructors
+	"test module pattern" : function () {
+		var test_array = ["a", "b", "z"];
+		var arr = new MYAPP.utilities.Array_Constr(test_array);
+		assertEquals(["a", "b", "z"], arr.elements);
 	}
+
 
 
 
