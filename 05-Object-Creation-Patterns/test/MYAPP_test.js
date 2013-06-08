@@ -85,15 +85,57 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		specs.price = "free";
 
 		// 戻り値がオブジェクトや配列である場合、参照渡しになるため、プライベートメンバが外部から変更できてしまう。
-		
+
 		var specs2 = toy.getSpecs();
 		assertEquals('320', specs2.screen_width);
 		assertEquals('480', specs2.screen_height);
 		assertEquals('black', specs2.color);
 		assertEquals('free', specs2.price);
 
-	}
+	},
 
+	// 5.3.4 オブジェクトリテラルとプライバシー
+	"test Private Properties and Methods Object Literals and Privacy" : function () {
+
+		var myobj;
+
+		// 無名即時関数
+
+		(function  () {
+
+			// プライベートメンバ
+			var name = "my, oh my";
+
+			// パブリックな部分の実装
+			// var がない点に注意
+
+			myobj = {
+
+				getName : function () {
+					return name;
+				}
+			};
+		}());
+
+		assertEquals("my, oh my", myobj.getName());
+
+		// モジュールパターン module pattern
+		var myobj_module_pattern = (function  () {
+
+			// プライベートメンバ
+			var name = "my, oh my";
+
+			// パブリックな部分の実装だけオブジェクトとして返す
+			return {
+				getName : function () {
+					return name;
+				}
+			};
+		}());
+
+		assertEquals("my, oh my", myobj_module_pattern.getName());
+
+	}
 
 
 
