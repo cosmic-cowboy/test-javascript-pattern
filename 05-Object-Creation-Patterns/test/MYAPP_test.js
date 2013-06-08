@@ -18,7 +18,7 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		MYAPP.namespace('once.upon.a.time.there.was.this.long.nested.property');
 		assertFalse('undefined' === MYAPP.once.upon.a.time.there.was.this.long.nested.property);
 	},
-	// 5.3 オブジェクトメンバはすべてパブリック
+	// 5.3 オブジェクトメンバはすべてパブリック 
 	"test All object members are public" : function () {
 		// オブジェクトメンバはすべてパブリック
 		var myobj = {
@@ -42,7 +42,7 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		assertEquals('iPod', toy.name);
 		assertEquals('iPad', toy.stretch());
 	},
-	// 5.3.1 プライベートメンバ
+	// 5.3.1 プライベートメンバ Private Members
 	"test Private Properties and Methods Private Members" : function () {
 
 		function Gadget () {
@@ -57,5 +57,58 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		var toy = new Gadget();
 		assertEquals(undefined, toy.name);
 		assertEquals('iPod', toy.getName());
+	},
+	// 5.3.3 プライバシーの侵犯 Privacy Failures
+	"test Private Properties and Methods Privacy Failures" : function(){
+
+		function Gadget () {
+		// プライベートメンバ
+			var specs = {
+				screen_width : 320,
+				screen_height : 480,
+				color : "white"
+			};
+
+			// パブリック関数
+			this.getSpecs = function () {
+				return specs;
+			};
+		}
+
+		var toy = new Gadget();
+		var specs = toy.getSpecs();
+		assertEquals('320', specs.screen_width);
+		assertEquals('480', specs.screen_height);
+		assertEquals('white', specs.color);
+
+		specs.color = "black";
+		specs.price = "free";
+
+		// 戻り値がオブジェクトや配列である場合、参照渡しになるため、プライベートメンバが外部から変更できてしまう。
+		
+		var specs2 = toy.getSpecs();
+		assertEquals('320', specs2.screen_width);
+		assertEquals('480', specs2.screen_height);
+		assertEquals('black', specs2.color);
+		assertEquals('free', specs2.price);
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
