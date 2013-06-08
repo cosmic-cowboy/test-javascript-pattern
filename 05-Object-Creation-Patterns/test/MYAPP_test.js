@@ -204,6 +204,11 @@ TestCase("05-Object-Creation-Patterns MYAPP", {
 		myarray.indexOf = null;
 		assertEquals(2, myarray.inArray(test_array, "z"));
 
+	},
+	// 5.4 モジュールパターン module pattern
+	"test module pattern" : function () {
+		var test_array = ["a", "b", "z"];
+		assertTrue(MYAPP.utilities.array.indexOf(test_array, "z"));
 	}
 
 
