@@ -19,6 +19,7 @@ TestCase("06-Code-Reuse-Patterns Classical Inheritance The Default Pattern", {
 
 
 TestCase("06-Code-Reuse-Patterns Classical Inheritance Rent-a-Constructor", {
+
 	"test Classical Inheritance Rent-a-Constructor" : function () {
 		// a parent constructor
 		function Article () {
@@ -49,5 +50,12 @@ TestCase("06-Code-Reuse-Patterns Classical Inheritance Rent-a-Constructor", {
 		assertEquals("js, css, html", article.tags.join(', '));
 		assertEquals("js, css, html", blog.tags.join(', '));
 		assertEquals("js, css, php", page.tags.join(', '));
+	},
+
+	"test Classical Inheritance Rent a Constructor" : function () {
+
+		var kid = new Child_Rent_a_Constructor("Patrick");
+		assertEquals("Patrick",   kid.name);
+		assertEquals("undefined", typeof kid.say);
 	}
 });
