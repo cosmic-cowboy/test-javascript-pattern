@@ -2,8 +2,36 @@
 // Expected Outcome When Using Classical Inheritance
 
 TestCase("06-Code-Reuse-Patterns Classical Inheritance The Default Pattern", {
+
 	"test Classical Inheritance Following the Prototype Chain" : function () {
-		var kid = new Child_Inheritance();
+
+		function inherit(C, P) {
+
+			// prototypeプロパティは関数ではなく、オブジェクトを指す
+			// コンストラクタ自体ではなく、親コンストラクタを生成したインスタンスを指すようにする
+			// new を使用し、インスタンスを生成すると、Pのインスタンスの機能がプロトタイプを介して、利用できるようになる
+			// thisに追加したインスタンス固有のプロパティとプロトタイプのプロパティが継承される
+
+			C.prototype = new P();
+		}
+
+		// the parent constructor
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+
+		// adding functionality to the prototype
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+
+		//6.2 Classical Inheritance Child
+		function Child(name) {}
+
+		// inheritance magic happens here
+		inherit(Child, Parent);
+
+		var kid = new Child();
 		assertEquals("Adam", kid.say());
 
 		kid.name = "Patrick";
@@ -12,7 +40,34 @@ TestCase("06-Code-Reuse-Patterns Classical Inheritance The Default Pattern", {
 		assertEquals("Adam", kid.say());
 	},
 	"test Classical Inheritance Drawbacks When Using Pattern #1" : function () {
-		var s_kid = new Child_Inheritance("Seth");
+
+		function inherit(C, P) {
+
+			// prototypeプロパティは関数ではなく、オブジェクトを指す
+			// コンストラクタ自体ではなく、親コンストラクタを生成したインスタンスを指すようにする
+			// new を使用し、インスタンスを生成すると、Pのインスタンスの機能がプロトタイプを介して、利用できるようになる
+			// thisに追加したインスタンス固有のプロパティとプロトタイプのプロパティが継承される
+
+			C.prototype = new P();
+		}
+
+		// the parent constructor
+		function Parent(name) {
+			this.name = name || "Adam";
+		}
+
+		// adding functionality to the prototype
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+
+		//6.2 Classical Inheritance Child
+		function Child(name) {}
+
+		// inheritance magic happens here
+		inherit(Child, Parent);
+
+		var s_kid = new Child("Seth");
 		assertEquals("Adam", s_kid.say());
 	}
 });
@@ -54,7 +109,18 @@ TestCase("06-Code-Reuse-Patterns Classical Inheritance Rent-a-Constructor", {
 
 	"test Classical Inheritance Rent a Constructor" : function () {
 
-		var kid = new Child_Rent_a_Constructor("Patrick");
+		// 6.4 Classical Pattern #2 Rent a Constructor The Prototype Chain
+		function Parent (name) {
+			this.name = name || "Adam";
+		}
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+		function Child(name){
+			Parent.apply(this, arguments);
+		}
+
+		var kid = new Child("Patrick");
 		assertEquals("Patrick",   kid.name);
 		assertEquals("undefined", typeof kid.say);
 	}
