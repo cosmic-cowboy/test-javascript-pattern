@@ -14,7 +14,8 @@ TestCase("05-Object-Creation-Patterns Static Members", {
 		// インスタンスメソッドを静的には呼び出せない
 		assertEquals("undefined", typeof Gadget_Static.setPrice);
 
-		// インスタンスから静的メソッドは呼び出せない
-		assertEquals("undefined", typeof iPhone.isShiny);
+		// インスタンスから静的メソッドは呼び出せないが、
+		// プロトタイプに追加することで呼び出すことが可能に
+		assertEquals("function", typeof iPhone.isShiny);
 	}
 });

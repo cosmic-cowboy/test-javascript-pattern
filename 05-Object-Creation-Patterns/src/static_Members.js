@@ -12,3 +12,6 @@ Gadget_Static.isShiny = function () {
 Gadget_Static.prototype.setPrice = function(price) {
 	this.price = price;
 };
+
+// プロトタイプにメソッドを追加して、もとの静的メソッドへのファサードとして機能させる
+Gadget_Static.prototype.isShiny = Gadget_Static.isShiny;
