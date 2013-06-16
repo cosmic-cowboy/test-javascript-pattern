@@ -114,6 +114,27 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #4 Share the Prototype", {
 
 });
 
+// 6.7 クラシカルなパターンその５　一時的コンストラクタ
+TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", {
+
+	// 6.7 一時的コンストラクタ Share the Prototype
+	"test Classical Inheritance A Temporary Constructor" : function () {
+
+		var Child = reusePatterns.aTemporaryConstructor.Child;
+		var Parent = reusePatterns.aTemporaryConstructor.Parent;
+		var kid = new Child("Patrick");
+		assertEquals("undefined", typeof kid.name);
+		assertEquals("function",  typeof kid.say);
+		assertEquals(undefined,   kid.say());
+
+		Parent.prototype.say = function() {
+			return "Parent say revised";
+		};
+		assertEquals("Parent say revised",   kid.say());
+	}
+
+});
+
 
 
 
