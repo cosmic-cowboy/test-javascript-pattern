@@ -110,6 +110,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #4 Share the Prototype", {
 			return "Parent say revised";
 		};
 		assertEquals("Parent say revised",   kid.say());
+		// 子や孫がプロトタイプを変更すると、すべての親、祖先に影響してしまう
 		Child.prototype.say = function() {
 			return "Child say revised";
 		};
@@ -136,6 +137,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 			return "Parent say revised";
 		};
 		assertEquals("Parent say revised",   kid.say());
+		// 子や孫のプロトタイプの変更が親に影響しない
 		Child.prototype.say = function() {
 			return "Child say revised";
 		};
