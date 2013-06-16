@@ -7,10 +7,6 @@ reusePatterns.storingTheSuperclass = (function () {
 		this.name = name;
 	}
 
-	Parent.prototype.say = function() {
-		return this.name;
-	};
-
 	function Child () {
 	}
 
@@ -22,10 +18,16 @@ reusePatterns.storingTheSuperclass = (function () {
 		C.uber = P.prototype;
 	}
 
-	inherit(Child, Parent);
+	function init () {
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+		inherit(Child, Parent);
+	}
 
 	return {
 		Parent : Parent,
-		Child  : Child
+		Child  : Child,
+		init : init
 	};
 }());

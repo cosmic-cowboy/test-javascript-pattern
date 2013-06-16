@@ -7,10 +7,6 @@ reusePatterns.aTemporaryConstructor = (function () {
 		this.name = name;
 	}
 
-	Parent.prototype.say = function() {
-		return this.name;
-	};
-
 	function Child () {
 	}
 
@@ -21,10 +17,16 @@ reusePatterns.aTemporaryConstructor = (function () {
 		C.prototype = new F();
 	}
 
-	inherit(Child, Parent);
+	function init () {
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+		inherit(Child, Parent);
+	}
 
 	return {
 		Parent : Parent,
-		Child  : Child
+		Child  : Child,
+		init   : init
 	};
 }());

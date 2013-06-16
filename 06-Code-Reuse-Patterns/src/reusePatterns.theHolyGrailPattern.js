@@ -7,10 +7,6 @@ reusePatterns.theHolyGrailPattern = (function () {
 		this.name = name;
 	}
 
-	Parent.prototype.say = function() {
-		return this.name;
-	};
-
 	function Child () {
 	}
 
@@ -25,9 +21,16 @@ reusePatterns.theHolyGrailPattern = (function () {
 		};
 	}());
 
+	function init () {
+		Parent.prototype.say = function() {
+			return this.name;
+		};
+		inherit(Child, Parent);
+	}
+
 	return {
 		Parent : Parent,
 		Child  : Child,
-		inherit : inherit
+		init : init
 	};
 }());

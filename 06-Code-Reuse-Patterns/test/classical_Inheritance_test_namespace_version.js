@@ -101,6 +101,9 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #4 Share the Prototype", {
 
 		var Child = reusePatterns.shareThePrototype.Child;
 		var Parent = reusePatterns.shareThePrototype.Parent;
+		var init = reusePatterns.shareThePrototype.init;
+
+		init();
 		var kid = new Child("Patrick");
 		assertEquals("undefined", typeof kid.name);
 		assertEquals("function",  typeof kid.say);
@@ -128,6 +131,9 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 
 		var Child = reusePatterns.aTemporaryConstructor.Child;
 		var Parent = reusePatterns.aTemporaryConstructor.Parent;
+		var init = reusePatterns.aTemporaryConstructor.init;
+		init();
+
 		var kid = new Child("Patrick");
 		assertEquals("undefined", typeof kid.name);
 		assertEquals("function",  typeof kid.say);
@@ -150,6 +156,9 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 
 		var Child = reusePatterns.storingTheSuperclass.Child;
 		var Parent = reusePatterns.storingTheSuperclass.Parent;
+		var init = reusePatterns.storingTheSuperclass.init;
+		init();
+
 		var kid = new Child("Patrick");
 		assertEquals("undefined", typeof kid.name);
 		assertEquals("function",  typeof kid.say);
@@ -176,8 +185,39 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 
 		var Child   = reusePatterns.theHolyGrailPattern.Child;
 		var Parent  = reusePatterns.theHolyGrailPattern.Parent;
-		var inherit = reusePatterns.theHolyGrailPattern.inherit;
-		inherit(Child, Parent);
+		var init = reusePatterns.theHolyGrailPattern.init;
+		init();
+
+		var kid = new Child("Patrick");
+
+		assertEquals("undefined", typeof kid.name);
+		assertEquals("function",  typeof kid.say);
+		assertEquals(undefined,   kid.say());
+
+		assertEquals("Child",  kid.constructor.name);
+		assertTrue(kid.constructor === Child);
+
+		// 継承クラスの関数を変更
+		Child.uber.say = function() {
+			return "Parent say revised";
+		};
+		assertEquals("Parent say revised",   kid.say());
+		// 子や孫のプロトタイプの変更が親に影響しない
+		Child.prototype.say = function() {
+			return "Child say revised";
+		};
+		assertEquals("Child say revised",   kid.say());
+		assertEquals("Parent say revised",   new Parent().say());
+	},
+
+	// 6.7.2 コンストラクタのポインタを再設定する Resetting the Constructor Pointer
+	"test Classical Inheritance A Temporary Constructor Resetting the Constructor Pointer" : function () {
+
+		var Child   = reusePatterns.theHolyGrailPattern.Child;
+		var Parent  = reusePatterns.theHolyGrailPattern.Parent;
+		var init = reusePatterns.theHolyGrailPattern.init;
+		init();
+
 		var kid = new Child("Patrick");
 
 		assertEquals("undefined", typeof kid.name);
@@ -199,11 +239,38 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 		assertEquals("Child say revised",   kid.say());
 		assertEquals("Parent say revised",   new Parent().say());
 	}
-
 });
 
+// 6.8 klass
+TestCase("06-Code-Reuse-Patterns Classical Pattern klass", {
+	"test klass" : function  () {
+		var Man = klass(null, {
+			__construct : function(what){
+				this.name = what;
+			},
+			getName : function () {
+				return this.name;
+			}
+		});
 
+		var first = new Man("adam");
+		assertEquals("adam", first.getName());
 
+		var SuperMan = klass(Man, {
+			__construct : function (what) {
+			},
+			getName : function () {
+				var name = SuperMan.uber.getName.call(this);
+				return "I am " + name;
+			}
+		});
+
+		var clark = new SuperMan("Clark Kent");
+		assertEquals("I am Clark Kent", clark.getName());
+		assertTrue(clark instanceof Man);
+		assertTrue(clark instanceof SuperMan);
+	}
+});
 
 
 
