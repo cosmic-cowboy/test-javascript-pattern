@@ -143,6 +143,32 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 		};
 		assertEquals("Child say revised",   kid.say());
 		assertEquals("Parent say revised",   new Parent().say());
+	},
+
+	// 6.7.1 スーパークラスを格納 Storing the Superclass
+	"test Classical Inheritance A Temporary Constructor Storing the Superclass" : function () {
+
+		var Child = reusePatterns.storingTheSuperclass.Child;
+		var Parent = reusePatterns.storingTheSuperclass.Parent;
+		var kid = new Child("Patrick");
+		assertEquals("undefined", typeof kid.name);
+		assertEquals("function",  typeof kid.say);
+		assertEquals(undefined,   kid.say());
+
+		assertEquals("Parent",  kid.constructor.name);
+		assertTrue(kid.constructor === Parent);
+
+		// 継承クラスの関数を変更
+		Child.uber.say = function() {
+			return "Parent say revised";
+		};
+		assertEquals("Parent say revised",   kid.say());
+		// 子や孫のプロトタイプの変更が親に影響しない
+		Child.prototype.say = function() {
+			return "Child say revised";
+		};
+		assertEquals("Child say revised",   kid.say());
+		assertEquals("Parent say revised",   new Parent().say());
 	}
 
 });
