@@ -1,8 +1,10 @@
 //6.2 Classical Inheritance
 // Expected Outcome When Using Classical Inheritance
-// 6.3 クラシカルなパターンその１：デフォルトパターン
+
+// 6.3 クラシカルなパターンその１：デフォルトパターン Classical Pattern #1—The Default Pattern
 TestCase("06-Code-Reuse-Patterns Classical Pattern #1 The Default Pattern", {
 
+	// 6.3.1 Following the Prototype Chain
 	"test Classical Inheritance Following the Prototype Chain" : function () {
 
 		function inherit(C, P) {
@@ -39,6 +41,8 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #1 The Default Pattern", {
 		delete kid.name;
 		assertEquals("Adam", kid.say());
 	},
+
+	// 6.3.2 Drawbacks When Using Pattern #1
 	"test Classical Inheritance Drawbacks When Using Pattern #1" : function () {
 
 		function inherit(C, P) {
@@ -65,6 +69,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #1 The Default Pattern", {
 // 6.4 クラシカルなパターンその２：コンストラクタ拝借
 TestCase("06-Code-Reuse-Patterns Classical Pattern #2 Rent a Constructor", {
 
+	// 6.4 コンストラクタ拝借 Rent a Constructor
 	"test Classical Inheritance Rent-a-Constructor" : function () {
 		// a parent constructor
 		function Article () {
@@ -97,6 +102,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #2 Rent a Constructor", {
 		assertEquals("js, css, php", page.tags.join(', '));
 	},
 
+	// 6.4.1 The Prototype Chain プロトタイプ連鎖
 	"test Classical Inheritance Rent a Constructor" : function () {
 
 		// 6.4 Classical Pattern #2 Rent a Constructor The Prototype Chain
@@ -121,9 +127,6 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #2 Rent a Constructor", {
 TestCase("06-Code-Reuse-Patterns Classical Pattern #3 Rent and Set Prototype", {
 
 	"test Classical Inheritance Rent and Set Prototype" : function () {
-		function inherit(C, P) {
-			C.prototype = new P();
-		}
 
 		function Parent(name) {
 			this.name = name || "Adam";

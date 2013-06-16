@@ -1,4 +1,5 @@
-// Multiple Inheritance by Borrowing Constructors
+// 6.2 Classical Inheritance
+// 6.4.2 Multiple Inheritance by Borrowing Constructors
 
 function Cat () {
 	this.legs = 4;

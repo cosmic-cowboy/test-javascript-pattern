@@ -1,6 +1,5 @@
 //6.2 Classical Inheritance Child
 
-
 // 名前空間
 reusePatterns.namespace('reusePatterns.defaultPattern');
 reusePatterns.namespace('reusePatterns.defaultPattern.Child');
