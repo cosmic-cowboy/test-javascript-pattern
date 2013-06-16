@@ -78,7 +78,7 @@ TestCase("06-Code-Reuse-Patterns Classical Inheritance Rent a Constructor ", {
 	}
 });
 
-// 6.5 クラシカルなパターンその３　クラシカルなパターンその３　プロトタイプを拝借して設定する
+// 6.5 クラシカルなパターンその３　プロトタイプを拝借して設定する
 TestCase("06-Code-Reuse-Patterns Classical Pattern #3 Rent and Set Prototype", {
 
 	// 6.5 プロトタイプを拝借して設定する Rent and Set Prototype
@@ -92,3 +92,43 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #3 Rent and Set Prototype", {
 	}
 
 });
+
+// 6.6 クラシカルなパターンその４　プロトタイプを共有する
+TestCase("06-Code-Reuse-Patterns Classical Pattern #4 Share the Prototype", {
+
+	// 6.6 プロトタイプを共有する Share the Prototype
+	"test Classical Inheritance Share the Prototype" : function () {
+
+		var Child = reusePatterns.shareThePrototype.Child;
+		var Parent = reusePatterns.shareThePrototype.Parent;
+		var kid = new Child("Patrick");
+		assertEquals("undefined", typeof kid.name);
+		assertEquals("function",  typeof kid.say);
+		assertEquals(undefined,   kid.say());
+
+		Parent.prototype.say = function() {
+			return "Parent say revised";
+		};
+		assertEquals("Parent say revised",   kid.say());
+	}
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
