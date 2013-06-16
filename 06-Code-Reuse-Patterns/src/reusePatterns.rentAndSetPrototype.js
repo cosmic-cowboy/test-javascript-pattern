@@ -4,17 +4,17 @@ reusePatterns.namespace('reusePatterns.rentAndSetPrototype');
 
 reusePatterns.rentAndSetPrototype = (function () {
 
-	Parent = function (name) {
+	function Parent (name) {
 		this.name = name || "Adam";
-	};
+	}
 
 	Parent.prototype.say = function() {
 		return this.name;
 	};
 
-	Child = function(name) {
+	function Child (name) {
 		Parent.apply(this,arguments);
-	};
+	}
 
 	Child.prototype = new Parent();
 
