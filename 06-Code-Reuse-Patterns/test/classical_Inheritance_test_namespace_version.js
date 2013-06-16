@@ -110,6 +110,11 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #4 Share the Prototype", {
 			return "Parent say revised";
 		};
 		assertEquals("Parent say revised",   kid.say());
+		Child.prototype.say = function() {
+			return "Child say revised";
+		};
+		assertEquals("Child say revised",   kid.say());
+		assertEquals("Child say revised",   new Parent().say());
 	}
 
 });
@@ -131,6 +136,11 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern #5 A Temporary Constructor", 
 			return "Parent say revised";
 		};
 		assertEquals("Parent say revised",   kid.say());
+		Child.prototype.say = function() {
+			return "Child say revised";
+		};
+		assertEquals("Child say revised",   kid.say());
+		assertEquals("Parent say revised",   new Parent().say());
 	}
 
 });
