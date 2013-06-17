@@ -1,5 +1,5 @@
 // 7.4 デコレータ Decorator
-// 7.4.2 リストを使った実装 Implementation Using a List
+// 7.4.3 リストを使った実装 Implementation Using a List
 function Sale_UsingAList (price) {
 	this.price = price || 100;
 	this.decorators_list = [];
