@@ -432,6 +432,25 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Inheritance by Copyi
 });
 
 
+// 6.10 プロパテイのコピーによる継承 Inheritance by Copying Properties
+TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Mix-ins", {
+	"test Mix-ins" : function () {
+		var cake = mix(
+			{eggs : 2, large : true},
+			{butter : 1, salted : true},
+			{flour : "3 cups"},
+			{sugar : "sure!"}
+		);
+		assertEquals(2, cake.eggs);
+		assertTrue(cake.large);
+		assertEquals(1, cake.butter);
+		assertTrue(cake.salted);
+		assertEquals("3 cups", cake.flour);
+		assertEquals("sure!", cake.sugar);
+	}
+});
+
+
 
 
 
