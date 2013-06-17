@@ -344,6 +344,33 @@ TestCase("005Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritan
 		// プロトタイプに追加したプロパテイが継承される
 		assertEquals("undefined", typeof kid.name);
 		assertEquals(undefined, kid.getName());
+	},
+	// 6.9.2 Addition to ECMAScript 5
+	"test Prototypal Inheritance the method Object.create" : function () {
+
+		function Parent () {
+			// 固有のプロパテイ　an 'own' property
+			this.name = "Adam";
+		}
+		// プロトタイプに追加したプロパテイ
+		Parent.prototype.getName = function  () {
+			return this.name;
+		};
+		// 新規作成
+		var parent = new Parent();
+
+		// 継承
+		var child = Object.create(parent, {
+			age : {value : 2}
+		});
+
+		// プロトタイプに追加したプロパテイが継承される
+		assertEquals("Adam", parent.name);
+		assertEquals("Adam", child.name);
+		assertEquals("Adam", parent.getName());
+		assertEquals("Adam", child.getName());
+		assertTrue(child.hasOwnProperty("age"));
+		assertEquals(2, child.age);
 	}
 });
 
