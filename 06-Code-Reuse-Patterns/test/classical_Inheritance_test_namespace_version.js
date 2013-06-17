@@ -272,6 +272,26 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern klass", {
 	}
 });
 
+// 6.9 Prototypal Inheritance
+TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritance", {
+	"test Prototypal Inheritance" : function () {
+		// 継承されるオブジェクト
+		var parent = {
+			name : "papa"
+		};
+
+		// 継承する新しいオブジェクト
+		var child = object(parent);
+
+		assertEquals("papa", parent.name);
+		assertEquals("papa", child.name);
+		child.name = "child";
+		// 一時的コンストラクタを利用しているので、parentには影響なし
+		assertEquals("papa", parent.name);
+		assertEquals("child", child.name);
+
+	}
+});
 
 
 
