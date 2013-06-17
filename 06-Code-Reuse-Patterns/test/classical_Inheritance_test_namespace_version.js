@@ -273,7 +273,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern klass", {
 });
 
 // 6.9 Prototypal Inheritance
-TestCase("005Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritance", {
+TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritance", {
 	"test Prototypal Inheritance" : function () {
 		// 継承されるオブジェクト
 		var parent = {
@@ -374,9 +374,36 @@ TestCase("005Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritan
 	}
 });
 
+// 6.10 プロパテイのコピーによる継承 Inheritance by Copying Properties
+TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Inheritance by Copying Properties", {
+	// shallow copy 浅いコピー
+	"test Inheritance by Copying Properties" : function  () {
+		var dad = {name : "adam"};
+		var kid = extend(dad);
+		assertEquals(dad.name, "adam");
+		assertEquals(kid.name, "adam");
+		kid.name = "kid";
+		assertEquals(dad.name, "adam");
+		assertEquals(kid.name, "kid");
+	},
+	// deep copy 深いコピー
+	"test Inheritance by Copying Properties deep copy" : function  () {
+		var dad = {
+			counts : [1,2,3],
+			reads : {paper:true}
+		};
+		var kid = extend(dad);
+		assertEquals(dad.counts.toString(), "1,2,3");
+		assertEquals(kid.counts.toString(), "1,2,3");
+		assertTrue(dad.reads.paper);
+		assertTrue(kid.reads.paper);
+		// オブジェクトは参照渡しなので、同じオブジェクトを参照している
+		kid.counts.push(4);
+		assertEquals(dad.counts.toString(), "1,2,3,4");
+		assertEquals(kid.counts.toString(), "1,2,3,4");
+	}
 
-
-
+});
 
 
 
