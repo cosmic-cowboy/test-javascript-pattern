@@ -273,7 +273,7 @@ TestCase("06-Code-Reuse-Patterns Classical Pattern klass", {
 });
 
 // 6.9 Prototypal Inheritance
-TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritance", {
+TestCase("005Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritance", {
 	"test Prototypal Inheritance" : function () {
 		// 継承されるオブジェクト
 		var parent = {
@@ -290,6 +290,60 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Prototypal Inheritan
 		assertEquals("papa", parent.name);
 		assertEquals("child", child.name);
 
+	},
+	// 6.9.1 解説 Prototypal Inheritance
+	"test Prototypal Inheritance both 'own' properties and properties of the constructor's prototype will be inherited" : function () {
+		function Person () {
+			// 固有のプロパテイ　an 'own' property
+			this.name = "Adam";
+		}
+		// プロトタイプに追加したプロパテイ
+		Person.prototype.getName = function  () {
+			return this.name;
+		};
+		// 新規作成
+		var papa = new Person();
+		// 継承
+		var kid = object(papa);
+
+		// 固有のプロパテイ,プロトタイプに追加したプロパテイが継承される
+		assertEquals("Adam", papa.name);
+		assertEquals("Adam", kid.name);
+		assertEquals("Adam", papa.getName());
+		assertEquals("Adam", kid.getName());
+		kid.name = "kid";
+
+		// 一時的コンストラクタを利用しているので、parentには影響なし
+		assertEquals("Adam", papa.name);
+		assertEquals("kid", kid.name);
+		assertEquals("Adam", papa.getName());
+		assertEquals("kid", kid.getName());
+
+		// プロトタイプは同じ物を参照
+		Person.prototype.getName = function  () {
+			return "Parent " + this.name;
+		};
+		assertEquals("Parent Adam", papa.getName());
+		assertEquals("Parent kid", kid.getName());
+
+	},
+	// 6.9.1 解説 Prototypal Inheritance
+	"test Prototypal Inheritance properties of the constructor's prototype will be inherited" : function () {
+		function Person () {
+			// 固有のプロパテイ　an 'own' property
+			this.name = "Adam";
+		}
+		// プロトタイプに追加したプロパテイ
+		Person.prototype.getName = function  () {
+			return this.name;
+		};
+
+		// 継承
+		var kid = object(Person.prototype);
+
+		// プロトタイプに追加したプロパテイが継承される
+		assertEquals("undefined", typeof kid.name);
+		assertEquals(undefined, kid.getName());
 	}
 });
 
