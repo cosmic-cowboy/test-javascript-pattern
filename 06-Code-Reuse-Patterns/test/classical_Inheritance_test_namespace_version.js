@@ -432,7 +432,7 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Inheritance by Copyi
 });
 
 
-// 6.10 プロパテイのコピーによる継承 Inheritance by Copying Properties
+// 6.11 ミックスイン Mix-ins
 TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Mix-ins", {
 	"test Mix-ins" : function () {
 		var cake = mix(
@@ -447,6 +447,72 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Mix-ins", {
 		assertTrue(cake.salted);
 		assertEquals("3 cups", cake.flour);
 		assertEquals("sure!", cake.sugar);
+	}
+});
+
+
+
+// 6.12 メソッドを拝借する
+TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Borrowing Methods", {
+	// 6.12.1 配列から拝借
+	"test Borrow from Array" : function () {
+		// callは別々のパタメータで渡されたメソッドが呼ばれる
+		function f_call () {
+			var args = [].slice.call(arguments, 1, 3);
+			return args;
+		}
+		// applyはパタメータの配列で渡されたメソッドが呼ばれる
+		function f_apply () {
+			var args = [].slice.apply(arguments, [1, 3]);
+			return args;
+		}
+		assertEquals([2,3], f_call(1,2,3,4,5,6));
+		assertEquals([2,3], f_apply(1,2,3,4,5,6));
+	},
+	// 6.12.2 拝借と束縛
+	"test Borrow and Bind" : function () {
+		var one = {
+			name : "object",
+			say : function (greet) {
+				return greet + ", " + this.name;
+			}
+		}
+		assertEquals("hi, object", one.say("hi"));
+
+		var two = {
+			name : "another object"
+		}
+		assertEquals("hello, another object", one.say.apply(two, ["hello"]));		
+
+		// メソッドを変数に代入する
+		// thisはグローバルオブジェクトになる
+		var say = one.say;
+		assertEquals("hoho, ", say("hoho"));
+
+		// コールバックとして渡す
+		// say()の内部でthisはグローバルオブジェクトを指している
+		var yetanother = {
+			name : "Yet another object",
+			method : function (callback) {
+				return callback('Hola');
+			}
+		};
+
+		function bind (o, m) {
+			return function  () {
+				return m.apply(o, [].slice.call(arguments));
+			}
+		}
+		var twosay = bind(two, one.say);
+		assertEquals("yo, another object", twosay("yo"));
+
+		// 6.12.3 Function.prototype.bind()
+		assertEquals("Hola, ", yetanother.method(one.say));
+		var twosay2 = one.say.bind(two);
+		assertEquals("Bonjour, another object", twosay2("Bonjour"));		
+		var twosay3 = one.say.bind(two, "Enchante");
+		assertEquals("Enchante, another object", twosay3());		
+
 	}
 });
 
