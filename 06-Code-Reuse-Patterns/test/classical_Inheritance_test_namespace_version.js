@@ -386,8 +386,8 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Inheritance by Copyi
 		assertEquals(dad.name, "adam");
 		assertEquals(kid.name, "kid");
 	},
-	// deep copy 深いコピー
-	"test Inheritance by Copying Properties deep copy" : function  () {
+	// shallow copy 浅いコピー
+	"test Inheritance by Copying Properties shallow copy" : function  () {
 		var dad = {
 			counts : [1,2,3],
 			reads : {paper:true}
@@ -401,6 +401,32 @@ TestCase("06-Code-Reuse-Patterns 'modern' Classical Pattern Inheritance by Copyi
 		kid.counts.push(4);
 		assertEquals(dad.counts.toString(), "1,2,3,4");
 		assertEquals(kid.counts.toString(), "1,2,3,4");
+	},
+	// deep copy 深いコピー
+	"test Inheritance by Copying Properties deep copy" : function  () {
+		var dad = {
+			counts : [1,2,3],
+			reads : {paper:true}
+		};
+		var kid = extendDeep(dad);
+		assertEquals(dad.counts.toString(), "1,2,3");
+		assertEquals(kid.counts.toString(), "1,2,3");
+		assertTrue(dad.reads.paper);
+		assertTrue(kid.reads.paper);
+
+		// 深いコピーなので、同じオブジェクトを参照しない
+		assertFalse(dad.reads === kid.reads);
+
+		kid.counts.push(4);
+		assertEquals(dad.counts.toString(), "1,2,3");
+		assertEquals(kid.counts.toString(), "1,2,3,4");
+
+		kid.reads.paper = false;
+		assertTrue(dad.reads.paper);
+		assertFalse(kid.reads.paper);
+		kid.reads.web = true;
+		assertTrue(kid.reads.web);
+		assertEquals("undefined", typeof dad.reads.web);
 	}
 
 });
