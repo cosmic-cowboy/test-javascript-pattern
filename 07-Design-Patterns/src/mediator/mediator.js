@@ -1,3 +1,7 @@
+// 7.8.1 mediator
+// Player.js, scoreboard.jsを知っている
+// キーイベントを拾って、各Playerに割り当て、
+// 割り当てられたことを確認したら、scoreboardに表示
 var mediator = {
 	// プレイヤ全員
 	players : {},

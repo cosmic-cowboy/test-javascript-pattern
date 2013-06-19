@@ -1,3 +1,6 @@
+// 7.8.1 mediator
+// ただ、表示するだけ
+
 var scoreborad = {
 
 	// 更新するHTML

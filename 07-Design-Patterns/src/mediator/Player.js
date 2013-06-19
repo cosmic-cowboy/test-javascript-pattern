@@ -1,3 +1,6 @@
+// 7.8.1 mediator
+// ただ、得点を憶えているだけ
+
 function Player(name){
 	this.points = 0;
 	this.name = name;
