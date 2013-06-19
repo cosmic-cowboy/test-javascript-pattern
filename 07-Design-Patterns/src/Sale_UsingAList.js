@@ -47,13 +47,13 @@ Sale_UsingAList.prototype.getPrice = function() {
 		max = this.decorators_list.length,
 		name;
 
-	console.log("call:1, decorator:none(Sale_UsingAList), price:" + price);
+	// console.log("call:1, decorator:none(Sale_UsingAList), price:" + price);
 
 	for (i = 0; i < max; i += 1) {
 		name = this.decorators_list[i];
 		// こうなるとgetPrice()というメソッドである必要がない。
 		price = Sale_UsingAList.decorators[name].getPrice(price);
-		console.log("call:" + (i+2)+ ", decorator:" + name +", price:" + price);
+		// console.log("call:" + (i+2)+ ", decorator:" + name +", price:" + price);
 	}
 	return price;
 };
