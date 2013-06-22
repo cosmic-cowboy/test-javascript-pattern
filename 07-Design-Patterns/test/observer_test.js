@@ -9,6 +9,7 @@ TestCase("07-Design-Patterns Observer", {
 
 		// 購読者
 		// 通知を受け取る
+		// joeはpaperをハードコーディングしていない。paperもしかり。
 		var joe = {
 			drinkCoffee : function (paper) {
 				return 'Just read ' + paper;
@@ -34,6 +35,23 @@ TestCase("07-Design-Patterns Observer", {
 		paper.unsubscribe(joe.drinkCoffee);
 		paper.daily();
 		assertEquals('', paper.getTestResult());
+
+
+		// joeを発行者にする
+		makePublisher(joe);
+		joe.tweet = function (msg) {
+			this.publish(msg);
+		};
+
+		// paperが購読する
+		paper.readTweets = function (tweet) {
+			return "call big meeting! Someone " + tweet;
+		};
+		joe.subscribe(paper.readTweets);
+
+		joe.tweet("hated the paper today");
+		assertEquals('call big meeting! Someone hated the paper today', joe.getTestResult());
+
 
 	}
 });
