@@ -38,9 +38,9 @@ TestCase("07-Design-Patterns Strategy", {
 
 		validator.validate(data);
 		assertTrue(validator.hasErrors());
-		for(var i = 0; i < validator.messages.length; i += 1){
-			console.log(validator.messages[i]);
-		}
+		// for(var i = 0; i < validator.messages.length; i += 1){
+		// 	console.log(validator.messages[i]);
+		// }
 		assertEquals(validator.messages[0], "Invalid value for * last_name * , the value cannot be empty");
 		assertEquals(validator.messages[1], "Invalid value for * age * , the value can only be a valid number, e.g. 1, 3.14 or 2010");
 		assertEquals(validator.messages[2], "Invalid value for * username * , the value can only contain characters and numbers, no special symbols");
