@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<h1>8.3 イベント Events</h1>	
+	<h3>8.3.2 イベント委譲  Event Delegation</h3>	
+<body>
+	<div id="click-wrap">
+		<button>Click me : 0</button>
+		<button>Click me too: 0</button>
+		<button>Click me three: 0</button>
+	</div>
+
+	<script src="http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js"></script>
+	<script type="text/javascript">
+		function myHandler (e) {
+			var src = e.target,
+				parts;
+
+			parts = src.get('innerHTML').split(": ");
+			parts[1] = parseInt(parts[1], 10) + 1;
+			src.set('innerHTML', parts[0] + " : " + parts[1]);
+
+			e.halt();
+		}
+
+		YUI().use("event-delegate", function(Y){
+			Y.delegate('click', myHandler, "#click-wrap", "button");
+		})
+	</script>
+</body>
+</html>

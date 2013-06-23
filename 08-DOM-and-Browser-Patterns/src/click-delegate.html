@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>8.3 イベント Events</title>
+</head>
+	<h1>8.3 イベント Events</h1>	
+	<h3>8.3.2 イベント委譲  Event Delegation</h3>	
+<body>
+	<div id="click-wrap">
+		<button>Click me : 0</button>
+		<button>Click me too: 0</button>
+		<button>Click me three: 0</button>
+	</div>
+
+	<script>
+	function myHandler (e) {
+
+		var src, parts;
+		e = e || window.event;
+		src = e.target || e.srcElement;
+
+		parts = src.innerHTML.split(": ");
+		parts[1] = parseInt(parts[1], 10) + 1;
+		src.innerHTML = parts[0] + " : " + parts[1];
+
+		if(typeof e.stopPropagation === "function"){
+			e.stopPropagation();
+		} 
+		e.cancelBubble = true;
+
+		if(typeof e.preventDefault == "function"){
+			e.preventDefault();
+		}
+		e.returnValue = false;
+	}
+
+	// それぞれのボタンにつけず、divにつけることで、1箇所でイベントハンドリングを行う
+	var el = document.getElementById("click-wrap");
+	if(document.addEventListener){
+		el.addEventListener('click', myHandler, false);
+	} else if (document.attachEvent){
+		el.attachEvent('click', myHandler);
+	} else {
+		el.onclick = myHandler;
+	}
+	</script>
+</body>
+</html>
