@@ -8,40 +8,40 @@
 	<h1>8.3 イベント Events</h1>	
 	<h3>8.3.1 イベント処理  Event Handling</h3>	
 	<button id="clickme">Click me : 0</button>
+	<script>
+		function myHandler (e) {
+			var src, parts;
+
+			// イベントと発生元の要素を取得
+			e = e || window.event;
+			src = e.target || e.srcElement;
+
+			// ラベルの更新
+			parts = src.innerHTML.split(": ");
+			parts[1] = parseInt(parts[1], 10) + 1;
+			src.innerHTML = parts[0] + ": " + parts[1];
+
+			// 伝播させない
+			if(typeof e.stopPropagation == "function"){
+				e.stopPropagation();
+			}
+			e.cancelBubble = true;
+
+			// デフォルトの動作を抑止する
+			if(typeof e.preventDefault === "function"){
+				e.preventDefault();
+			}
+			e.returnValue = false;
+
+		}
+		var b = document.getElementById("clickme");
+		if(document.addEventListener){
+			b.addEventListener('click', myHandler, false);
+		} else if (document.attachEvent) {
+			b.attachEvent('click', myHandler);
+		} else {
+			b.onclick = myHandler;
+		}
+	</script>
 </body>
-<script>
-	function myHandler (e) {
-		var src, parts;
-
-		// イベントと発生元の要素を取得
-		e = e || window.event;
-		src = e.target || e.srcElement;
-
-		// ラベルの更新
-		parts = src.innerHTML.split(": ");
-		parts[1] = parseInt(parts[1], 10) + 1;
-		src.innerHTML = parts[0] + ": " + parts[1];
-
-		// 伝播させない
-		if(typeof e.stopPropagation == "function"){
-			e.stopPropagation();
-		}
-		e.cancelBubble = true;
-
-		// デフォルトの動作を抑止する
-		if(typeof e.preventDefault === "function"){
-			e.preventDefault();
-		}
-		e.returnValue = false;
-
-	}
-	var b = document.getElementById("clickme");
-	if(document.addEventListener){
-		b.addEventListener('click', myHandler, false);
-	} else if (document.attachEvent) {
-		b.attachEvent('click', myHandler);
-	} else {
-		b.onclick = myHandler;
-	}
-</script>
 </html>
