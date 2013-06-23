@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <title>Keypress challenge</title>
+    <style>
+    #results {text-align: center; font-size: 36px;}
+    strong {color: blue;}
+    </style> 
+</head>    
+<body>
+
+<div id="results"></div>
+
+<script type="text/javascript" src="publisher.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript" src="Player.js"></script>
+<script type="text/javascript" src="scoreboard.js"></script>
+    
+<script>
+
+// Player内で発生したnewplayerというイベントが発生したら、gameのaddPlayerメソッドを呼び出すx
+Player.prototype.on("newplayer", "addPlayer", game);
+// Player内で発生したplayというイベントが発生したら、gameのhandlePlayメソッドを呼び出す
+Player.prototype.on("play",      "handlePlay", game);
+
+// game内で発生したscorechangeというイベントが発生したら、scoreboardのscoreboard.updateメソッドを呼び出す
+// game.on("scorechange", scoreboard.update, scoreboard);
+game.on("scorechange", "update", scoreboard);
+
+window.onkeypress = game.handleKeypress;
+
+
+var playername, key;
+while (1) {
+    playername = prompt("Add player (name)");
+    if (!playername) {
+        break;
+    }
+    while (1) {
+        key = prompt("Key for " + playername + "?");
+        if (key) {
+            break;
+        }
+    }
+    new Player(playername,  key);    
+}
+// 初期表示
+game.handlePlay();
+</script>
+
+</body></html>
